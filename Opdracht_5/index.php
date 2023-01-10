@@ -1,27 +1,3 @@
-<?php
-require 'connection.php';
-
-if(isset($_POST["submit"])){
-    $fname = $_POST["Firstname"];
-    $sname = $_POST["Secondname"];
-    $gender = $_POST["gender"];
-    $street = $_POST["street"];
-    $hNum = $_POST["hNum"];
-    $email = $_POST["email"];
-    $pwd = $_POST["pwd"];
-
-    $languages = $_POST["languages"];
-    $language = "";
-    foreach($language as $row){
-        $language .-$row. ",";
-    };
-
-    $query = "INSERT INTO tb_data VALUES('','$fname','$sname','$gender','$street','$hNum','$language','$email','$pwd')";
-    mysqli_query($conn, $query);
-
-    echo " <script> console.log('yeah'); </script>";
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -32,23 +8,53 @@ if(isset($_POST["submit"])){
     <title>Document</title>
   </head>
   <body>
+  <?php
+require 'connection.php';
+echo 'start of code/';
+if(isset($_POST["submit"])){
+  echo 'oke/';
+    $firstname = filter_input(INPUT_POST, "firstname", FILTER_SANITIZE_STRING);
+    $secondname = filter_input(INPUT_POST, "secondname", FILTER_SANITIZE_STRING);
+    $gender = filter_input(INPUT_POST, "gender", FILTER_SANITIZE_STRING);
+    $street = filter_input(INPUT_POST, "street", FILTER_SANITIZE_STRING);
+    $hnum = filter_input(INPUT_POST, "hnum", FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_STRING);
+    $pwd = filter_input(INPUT_POST, "pwd", FILTER_SANITIZE_STRING);
+    $languages = filter_input(INPUT_POST, "languages", FILTER_SANITIZE_STRING);
+  echo 'yeah/';
+    $query = $conn->prepare ("INSERT INTO fdata VALUES(:firstname,:secondname,:gender,:street,:hnum,:languages,:email,:pwd)");
+
+    $query->bindValue("firstname",$firstname);
+    $query->bindValue("secondname",$secondname);
+    $query->bindValue("gender",$gender);
+    $query->bindValue("street",$street);
+    $query->bindValue("hnum",$hnum);
+    $query->bindValue("email",$email);
+    $query->bindValue("pwd",$pwd);
+    $query->bindValue("languages",$languages);
+    $query->execute();
+
+  echo 'connected/';
+};
+echo 'end of code/';
+?>
     <main>
-      <form>
-        <label for="fName">Voornaam : </label> <br />
-        <input type="text" id="fName" name="fName" autofocus autocomplete="on" pattern="[A-Za-z]{0,100}"/> <br />
-        <label for="sName">Achternaam : </label> <br />
-        <input type="text" id="sName" name="sName" /> <br />
+      <form method="POST" name="dataform" action=#>
+        <label for="firstname">Voornaam : </label> <br />
+        <input type="text" id="firstname" name="firstname" autofocus autocomplete="on" pattern="[A-Za-z]{0,100}" required/> <br />
+        <label for="secondname">Achternaam : </label> <br />
+        <input type="text" id="secondname" name="secondname" required/> <br />
 
         <label> Geslacht </label> <br>
-        <input type="radio" id="SexM" name="m" value="man" > Man
-        <input type="radio" id="SexW" name="f" value="woman"> Woman <br />
+        <input type="radio" id="SexM" name="gender" value="man" required> Man
+        <input type="radio" id="SexW" name="gender" value="woman" required> Woman <br />
 
         <label for="street">Straat en huisnummer : </label> <br />
-        <input type="text" id="street" name="street"/>
-        <input type="number" id="hNum" name="hNum"> <br/>
+        <input type="text" id="street" name="street" required/>
+        <input type="number" id="hnum" name="hnum" required> <br/>
 
-        <label for="Land">Selecteer een eindbestemming : </label>
-        <select id="Spanje" id="italie" id="Oekraine">
+        <label for="country">Selecteer een eindbestemming : </label>
+        <select id="languages" name="languages">
           <option value="Spanje" name="spanje" >Spanje</option>
           <option value="Italie" name="italie" >Italie</option>
           <option value="Oekraine" name="oekraine" >Oekraine</option>
@@ -56,13 +62,13 @@ if(isset($_POST["submit"])){
         
         <br />
         <br />
-        <label for="email"> E-Mail : </label> <br />
-        <input type="email" id="email" name="email" /> <br />
+        <label for="email" > E-Mail : </label> <br />
+        <input type="email" id="email" name="email" required/> <br />
 
         <label for="password">Wachtwoord : </label> <br />
-        <input type="password" id="pwd" name="pwd" /> <br />
+        <input type="password" id="pwd" name="pwd" required/> <br />
 
-        <input type="submit" value="submit" />Submit<br />
+        <input type="submit" value="submit" name="submit" /><br />
       </form>
       
     </main>
