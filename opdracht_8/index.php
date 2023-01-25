@@ -11,17 +11,15 @@
         <input type="number" name="num"> <br>
         <input type="submit" value="show table" name="submit">
     </form>
-    <?php
-    $number;
     
+    <?php
      if(isset($_POST["submit"])){
-        bindValue("num",$number);
-        execute();
+        $number = filter_input(INPUT_POST, "num", FILTER_SANITIZE_NUMBER_INT);
+
+        for($i = 1; $i <= 10; $i++){
+            echo "$i x $number = " . ($i * $number) . "<br>";
+        }
      };
-     
-     for($i = $number; $i <= 10; $i++){
-        echo "$i x number = " . ($i * $number) . "<br>";
-    }
     
 
     
