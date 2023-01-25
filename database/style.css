@@ -1,0 +1,99 @@
+*{
+    font-size: 62.5%;
+    margin: 0;
+    padding: 0;
+}
+
+.gamesBut{
+    border: solid 1px black;
+    width: 48%;
+    height: 30vh;
+    display: flex;border-radius: 32px;
+}
+.img{
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.gamesInfo{
+width: 100%;
+}
+.BigTitle{
+    display: flex;
+    flex-direction: row;
+}
+.TitleG{
+    margin-top: 0.5rem;
+    background-color: #0A1535;
+    font-size: 3rem;
+    text-align: center;
+    width: 95%;
+    border: solid 1px;
+    color: white;
+    border-radius: 30px;
+}
+.titleGame{
+    font-size: 1.5rem;
+}
+.titleGenre{
+display: flex;
+flex-direction: row;
+width: 100%;
+}
+.titleGenre h3{
+    font-size: 2rem;
+    margin-right: 1rem;
+}
+.titleGenre p{
+    font-size: 2rem;
+}
+.titleAge{
+display: flex;
+flex-direction: row;
+width: 100%;
+}
+.titleAge h3{
+    font-size: 2rem;
+    margin-right: 1rem;
+}
+.titleAge p{
+    font-size: 2rem;
+}
+.titleDescription{
+display: flex;
+flex-direction: row;
+width: 100%;
+margin-bottom: 13%;
+}
+.titleDescription h3{
+    font-size: 2rem;
+    margin-right: 1rem;
+}
+.titleDescription p{
+    font-size: 2rem;
+}
+.titlePrice{
+    margin-top: 3rem;
+    background-color: darkgreen;
+    width: 4.5vw;
+    height: 2vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: 3.5rem;
+    border-radius: 16px;
+}
+.price{
+    color: white;
+    font-size: 2rem;
+}
+.gamesContainer{
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 1rem;
+    column-gap: 1rem;
+    justify-content: center;
+    width: 100vw;
+}
